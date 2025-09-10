@@ -98,22 +98,22 @@ st.markdown("""
     
     /* Header section */
     .header-section {
-        padding: 1.5rem 2rem;
+        padding: 1rem 1.5rem;
         background: #0f0f0f;
         border-bottom: 1px solid #2a2a2a;
         flex-shrink: 0;
     }
     
     .header-title {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         font-weight: 600;
         color: #ffffff;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
         font-family: 'Inter', sans-serif;
     }
     
     .header-subtitle {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
         color: #a0a0a0;
         font-weight: 400;
         font-family: 'Inter', sans-serif;
@@ -132,7 +132,7 @@ st.markdown("""
     .chat-messages {
         flex: 1;
         overflow-y: auto;
-        padding: 1rem 2rem;
+        padding: 0.5rem 1.5rem;
         background: #0f0f0f;
         scroll-behavior: smooth;
     }
@@ -156,7 +156,7 @@ st.markdown("""
     
     /* Individual message styling */
     .message {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
         display: flex;
         align-items: flex-start;
         gap: 0.75rem;
@@ -212,7 +212,7 @@ st.markdown("""
     
     /* Input section */
     .input-section {
-        padding: 1rem 2rem 2rem;
+        padding: 0.75rem 1.5rem 1rem;
         background: #0f0f0f;
         border-top: 1px solid #2a2a2a;
         flex-shrink: 0;
@@ -254,18 +254,6 @@ st.markdown("""
         gap: 0.5rem;
     }
     
-    .input-icon {
-        width: 20px;
-        height: 20px;
-        color: #666666;
-        cursor: pointer;
-        transition: color 0.2s ease;
-    }
-    
-    .input-icon:hover {
-        color: #ffffff;
-    }
-    
     .send-button {
         background: #007bff;
         border: none;
@@ -292,23 +280,23 @@ st.markdown("""
     /* Mobile responsiveness */
     @media (max-width: 768px) {
         .header-section {
-            padding: 1rem 1rem;
+            padding: 0.75rem 1rem;
         }
         
         .header-title {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
         }
         
         .header-subtitle {
-            font-size: 0.875rem;
+            font-size: 0.8rem;
         }
         
         .chat-messages {
-            padding: 1rem;
+            padding: 0.5rem 1rem;
         }
         
         .input-section {
-            padding: 1rem;
+            padding: 0.5rem 1rem 0.75rem;
         }
         
         .message-content {
@@ -370,15 +358,6 @@ st.markdown("""
     <div class="input-container">
         <input type="text" class="input-field" placeholder="Ask anything" id="chat-input">
         <div class="input-actions">
-            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M5 12h14"/>
-            </svg>
-            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                <line x1="12" y1="19" x2="12" y2="23"/>
-                <line x1="8" y1="23" x2="16" y2="23"/>
-            </svg>
             <button class="send-button" id="send-button">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="22" y1="2" x2="11" y2="13"/>
