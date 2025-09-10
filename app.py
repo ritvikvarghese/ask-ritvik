@@ -1,17 +1,13 @@
-import streamlit as st
+import gradio as gr
 from dotenv import load_dotenv
 from openai import OpenAI
 from pypdf import PdfReader
 import os
 
-# Set page config FIRST - before any other Streamlit commands
-st.set_page_config(page_title="Ritvik Varghese - AI Chat", layout="wide")
-
 load_dotenv(override=True)
 openai = OpenAI()
 
 # Load data
-@st.cache_data
 def load_data():
     reader = PdfReader("me/linkedin.pdf")
     linkedin = ""
@@ -48,37 +44,17 @@ def chat(message, history):
     response = openai.chat.completions.create(model="gpt-4o-mini", messages=messages)
     return response.choices[0].message.content
 
-# Streamlit UI
-st.title("🤖 Chat with Ritvik Varghese")
-st.markdown("**Entrepreneur | Product Leader | 3x Founder | Ex-National Athlete**")
-st.markdown("Hey there! I'm Ritvik, a serial entrepreneur who's built and scaled companies to $400k+ revenue. Ask me anything about my journey, startups, or what I'm working on next.")                
-
-# Initialize chat history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-# Display chat messages
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-# Chat input
-if prompt := st.chat_input("Ask me anything about my career, work or projects..."):
-    # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": prompt})
-
-    # Display user message
-    with st.chat_message("user"):
-        st.markdown(prompt)
-
-    # Get AI response
-    with st.chat_message("assistant"):
-        response = chat(prompt, st.session_state.messages[:-1])
-        st.markdown(response)
-
-    # Add AI response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
-
-# Footer
-st.markdown("---")
-st.markdown("**Connect with me:** [Website](https://ritvik.io) | [LinkedIn](https://linkedin.com/in/ritvikvarghese) | [Twitter](https://twitter.com/ritvikvarghese) | ritvikvarghese@gmail.com")
+# Simple working version with black and white design
+gr.ChatInterface(
+    chat,
+    type="messages",
+    title="Ritvik Varghese",
+    description="Ask me about my career, work or projects.",
+    examples=[
+        "What's your background?",
+        "Tell me about your companies", 
+        "What are you working on now?",
+        "What's your experience with AI?",
+        "How did you raise funding?"
+    ]
+).launch(share=True)
