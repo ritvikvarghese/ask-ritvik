@@ -5,6 +5,9 @@ from openai import OpenAI
 from pypdf import PdfReader
 import os
 
+# Set page config FIRST - before any other Streamlit commands
+st.set_page_config(page_title="Ritvik Varghese - AI Chat", layout="wide")
+
 load_dotenv(override=True)
 openai = OpenAI()
 
@@ -47,8 +50,6 @@ def chat(message, history):
     return response.choices[0].message.content
 
 # Streamlit UI
-st.set_page_config(page_title="Ritvik Varghese - AI Chat", layout="wide")
-
 st.title("🤖 Chat with Ritvik Varghese")
 st.markdown("**Entrepreneur | Product Leader | 3x Founder | Ex-National Athlete**")
 st.markdown("Hey there! I'm Ritvik, a serial entrepreneur who's built and scaled companies to $400k+ revenue. Ask me anything about my journey, startups, or what I'm working on next.")
