@@ -70,7 +70,7 @@ demo = gr.ChatInterface(
     description="sk me about my career, work or projects.",
     examples=[
         "introduce yourself",
-        "Tell me about your companies", 
+        "tell me about your companies", 
         "what are your skills?", 
         "tell me about your latest company",
         "what's your work experience?",
