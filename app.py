@@ -150,12 +150,12 @@ demo = gr.ChatInterface(
         }
         /* Adjust message font size on mobile */
         .message-wrap .message .markdown {
-            font-size: 12px !important;
-            line-height: 1.3 !important;
+            font-size: 10px !important;
+            line-height: 1.2 !important;
         }
         .message-wrap .message .markdown p {
-            font-size: 12px !important;
-            line-height: 1.3 !important;
+            font-size: 10px !important;
+            line-height: 1.2 !important;
         }
         /* Make examples smaller on mobile */
         .gradio-container .examples {
