@@ -66,14 +66,15 @@ def chat(message, history):
 demo = gr.ChatInterface(
     chat,
     type="messages",
-    title="Ritvik Varghese",
-    description="Ask me about my career, work or projects.",
+    title="ritvik varghese",
+    description="sk me about my career, work or projects.",
     examples=[
-        "What's your background?",
+        "introduce yourself",
         "Tell me about your companies", 
-        "What are you working on now?",
-        "What's your experience with AI?",
-        "How did you raise funding?"
+        "what are your skills?", 
+        "tell me about your latest company",
+        "what's your work experience?",
+        "what projects have you worked on?"
     ],
     css="""
     .gradio-container {
@@ -90,10 +91,10 @@ demo = gr.ChatInterface(
         margin-bottom: 2rem !important;
     }
     /* Left align chat messages */
-    .message {
+    .message-wrap {
         text-align: left !important;
     }
-    .message-wrap {
+    .message {
         text-align: left !important;
     }
     .chat-message {
@@ -103,6 +104,20 @@ demo = gr.ChatInterface(
         text-align: left !important;
     }
     .user-message {
+        text-align: left !important;
+    }
+    /* Target Gradio's specific message classes */
+    .message-wrap .message {
+        text-align: left !important;
+    }
+    .message-wrap .message .markdown {
+        text-align: left !important;
+    }
+    .message-wrap .message .markdown p {
+        text-align: left !important;
+    }
+    /* Target the actual message content */
+    .message-wrap .message .markdown * {
         text-align: left !important;
     }
     """
