@@ -54,43 +54,45 @@ def chat(message, history):
     response = openai.chat.completions.create(model="gpt-4o-mini", messages=messages)
     return response.choices[0].message.content
 
-# Add Meta Tags and Open Graph for Social Media
+# Add custom HTML head elements using Streamlit's components
 st.markdown("""
-<head>
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://ask.ritvik.io/robot-favicon.png">
-    <link rel="apple-touch-icon" href="https://ask.ritvik.io/robot-favicon.png">
-    <link rel="shortcut icon" href="https://ask.ritvik.io/robot-favicon.png">
-    
-    <!-- Meta Tags -->
-    <meta name="description" content="Chat with Ritvik Varghese - 3x entrepreneur who sold Imagined after scaling to $400k revenue. Ask about startups, business, and entrepreneurship.">
-    <meta name="keywords" content="Ritvik Varghese, entrepreneur, startup, business, AI chat, Imagined, Ripen, founder">
-    <meta name="author" content="Ritvik Varghese">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ask.ritvik.io/">
-    <meta property="og:title" content="Chat with Ritvik - AI Entrepreneur Chat">
-    <meta property="og:description" content="Chat with Ritvik - 3x entrepreneur who sold Imagined after scaling to $400k revenue. Ask about startups, business, and entrepreneurship.">
-    <meta property="og:image" content="https://ask.ritvik.io/meta-image.png">
-    <meta property="og:site_name" content="Ritvik Varghese">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://ask.ritvik.io/">
-    <meta property="twitter:title" content="Chat with Ritvik - AI Entrepreneur Chat">
-    <meta property="twitter:description" content="Chat with Ritvik - 3x entrepreneur who sold Imagined after scaling to $400k revenue. Ask about startups, business, and entrepreneurship.">
-    <meta property="twitter:image" content="https://ask.ritvik.io/meta-image.png">
-    <meta property="twitter:creator" content="@ritvik_varghese">
-    
-    <!-- Additional Meta Tags -->
-    <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#4CAF50">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Ritvik AI Chat">
-</head>
+<script>
+// Add meta tags dynamically to the head
+const metaTags = [
+    {name: 'description', content: 'Chat with Ritvik - 3x entrepreneur who sold Imagined after scaling to $400k revenue. Ask about startups, business, and entrepreneurship.'},
+    {name: 'keywords', content: 'Ritvik Varghese, entrepreneur, startup, business, AI chat, Imagined, Ripen, founder'},
+    {name: 'author', content: 'Ritvik Varghese'},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:url', content: 'https://ask.ritvik.io/'},
+    {property: 'og:title', content: 'Chat with Ritvik - AI Entrepreneur Chat'},
+    {property: 'og:description', content: 'Chat with Ritvik - 3x entrepreneur who sold Imagined after scaling to $400k revenue. Ask about startups, business, and entrepreneurship.'},
+    {property: 'og:image', content: 'https://ask.ritvik.io/meta-image.png'},
+    {property: 'og:site_name', content: 'Ritvik Varghese'},
+    {property: 'twitter:card', content: 'summary_large_image'},
+    {property: 'twitter:url', content: 'https://ask.ritvik.io/'},
+    {property: 'twitter:title', content: 'Chat with Ritvik - AI Entrepreneur Chat'},
+    {property: 'twitter:description', content: 'Chat with Ritvik - 3x entrepreneur who sold Imagined after scaling to $400k revenue. Ask about startups, business, and entrepreneurship.'},
+    {property: 'twitter:image', content: 'https://ask.ritvik.io/meta-image.png'},
+    {property: 'twitter:creator', content: '@ritvik_varghese'},
+    {name: 'robots', content: 'index, follow'},
+    {name: 'theme-color', content: '#4CAF50'}
+];
+
+metaTags.forEach(tag => {
+    const meta = document.createElement('meta');
+    if (tag.name) meta.setAttribute('name', tag.name);
+    if (tag.property) meta.setAttribute('property', tag.property);
+    meta.setAttribute('content', tag.content);
+    document.head.appendChild(meta);
+});
+
+// Add favicon
+const favicon = document.createElement('link');
+favicon.rel = 'icon';
+favicon.type = 'image/png';
+favicon.href = 'https://ask.ritvik.io/robot-favicon.png';
+document.head.appendChild(favicon);
+</script>
 """, unsafe_allow_html=True)
 
 # Streamlit UI with Mobile-First Responsive Design
