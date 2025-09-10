@@ -54,26 +54,26 @@ st.markdown("""
 <style>
     .main-header {
         text-align: center;
-        padding: 2rem 0;
-        margin-bottom: 1rem;
+        padding: 1rem 0;
+        margin-bottom: 0.5rem;
     }
     .main-header h1 {
         color: #fff;
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
+        font-size: 2rem;
+        margin-bottom: 0.3rem;
         font-family: 'Manrope', sans-serif;
     }
     .main-header p {
         color: #ccc;
-        font-size: 1.1rem;
-        margin: 0 0 1rem 0;
+        font-size: 1rem;
+        margin: 0 0 0.5rem 0;
         font-family: 'Manrope', sans-serif;
     }
     .contact-links {
         text-align: center;
-        padding: 1rem 0;
-        border-bottom: 2px solid #333;
-        margin-bottom: 2rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #333;
+        margin-bottom: 1rem;
     }
     .contact-links a {
         color: #4CAF50;
@@ -90,11 +90,11 @@ st.markdown("""
         max-width: 900px;
         margin: 0 auto;
         padding: 0 1rem;
-        min-height: 400px;
+        min-height: 300px;
     }
     .chat-message {
-        margin: 1rem 0;
-        padding: 1rem 1.5rem;
+        margin: 0.5rem 0;
+        padding: 0.8rem 1.2rem;
         border-radius: 18px;
         max-width: 80%;
         word-wrap: break-word;
@@ -155,7 +155,7 @@ st.markdown("""
         box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4) !important;
     }
     .chat-history {
-        padding-bottom: 100px;
+        padding-bottom: 80px;
     }
     @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
 </style>
