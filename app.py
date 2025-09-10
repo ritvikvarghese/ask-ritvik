@@ -168,8 +168,8 @@ st.markdown("""
     <p>I'm ritvik, a 3x entrepreneur, most recently sold imagined after scaling it to $400k/revenue. Ask me anything about my journey and work.</p>
     <div class="contact-links">
         <a href="https://ritvik.io">Website</a> | 
-        <a href="https://linkedin.com/in/ritvikvarghese">LinkedIn</a> | 
-        <a href="https://twitter.com/ritvikvarghese">Twitter</a> | 
+        <a href="https://www.linkedin.com/in/rivar/">LinkedIn</a> | 
+        <a href="https://x.com/ritvik_varghese">Twitter</a> | 
         <a href="mailto:ritvikvarghese@gmail.com">ritvikvarghese@gmail.com</a>
     </div>
 </div>
