@@ -49,9 +49,62 @@ def chat(message, history):
     response = openai.chat.completions.create(model="gpt-4o-mini", messages=messages)
     return response.choices[0].message.content
 
-# Streamlit UI
-st.title("🤖 Chat with Ritvik Varghese")
-st.markdown("I'm ritvik, a 3x entrepreneur, most recently sold imagined after scaling it to $400k/revenue. Ask me anything about my journey and work.")
+# Streamlit UI with Chat Styling
+st.markdown("""
+<style>
+    .main-header {
+        text-align: center;
+        padding: 2rem 0;
+        border-bottom: 1px solid #333;
+        margin-bottom: 2rem;
+    }
+    .main-header h1 {
+        color: #fff;
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .main-header p {
+        color: #ccc;
+        font-size: 1.1rem;
+        margin: 0;
+    }
+    .chat-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+    .footer {
+        text-align: center;
+        padding: 2rem 0;
+        border-top: 1px solid #333;
+        margin-top: 2rem;
+        color: #ccc;
+    }
+    .stChatMessage {
+        background-color: #1e1e1e;
+        border-radius: 12px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+    }
+    .stChatMessage[data-testid="user-message"] {
+        background-color: #2d2d2d;
+    }
+    .stChatMessage[data-testid="assistant-message"] {
+        background-color: #1e1e1e;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# Header
+st.markdown("""
+<div class="main-header">
+    <h1>🤖 Chat with Ritvik Varghese</h1>
+    <p>I'm ritvik, a 3x entrepreneur, most recently sold imagined after scaling it to $400k/revenue. Ask me anything about my journey and work.</p>
+</div>
+""", unsafe_allow_html=True)
+
+# Chat container
+st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -79,6 +132,14 @@ if prompt := st.chat_input("Ask me anything about my career, work or projects...
     # Add AI response to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})
 
+st.markdown('</div>', unsafe_allow_html=True)
+
 # Footer
-st.markdown("---")
-st.markdown("**Connect with me:** [Website](https://ritvik.io) | [LinkedIn](https://linkedin.com/in/ritvikvarghese) | [Twitter](https://twitter.com/ritvikvarghese) | ritvikvarghese@gmail.com")
+st.markdown("""
+<div class="footer">
+    <strong>Connect with me:</strong> <a href="https://ritvik.io" style="color: #4CAF50;">Website</a> | 
+    <a href="https://linkedin.com/in/ritvikvarghese" style="color: #4CAF50;">LinkedIn</a> | 
+    <a href="https://twitter.com/ritvikvarghese" style="color: #4CAF50;">Twitter</a> | 
+    <a href="mailto:ritvikvarghese@gmail.com" style="color: #4CAF50;">ritvikvarghese@gmail.com</a>
+</div>
+""", unsafe_allow_html=True)
