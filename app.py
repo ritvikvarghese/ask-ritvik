@@ -130,8 +130,8 @@ st.markdown("""
     /* Header Styles - Mobile First */
     .main-header {
         text-align: center;
-        padding: 0.8rem 0.5rem;
-        margin-bottom: 0.5rem;
+        padding: 0.5rem 0.3rem;
+        margin-bottom: 0.3rem;
         background: #0e1117;
     }
     
@@ -154,9 +154,9 @@ st.markdown("""
     
     .contact-links {
         text-align: center;
-        padding: 0.5rem 0.5rem;
+        padding: 0.3rem 0.3rem;
         border-bottom: 1px solid #333;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
         background: #0e1117;
     }
     
@@ -220,7 +220,7 @@ st.markdown("""
     
     .stChatInput > div > div {
         background: #2d2d2d !important;
-        border: 2px solid #4CAF50 !important;
+        border: 2px solid #ffffff !important;
         border-radius: 20px !important;
         padding: 0.6rem 1rem !important;
         font-size: 0.9rem !important;
@@ -233,8 +233,8 @@ st.markdown("""
     }
     
     .stChatInput > div > div:focus {
-        border-color: #66BB6A !important;
-        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
+        border-color: #ffffff !important;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
         outline: none !important;
         background: #2d2d2d !important;
     }
@@ -339,7 +339,7 @@ st.markdown("""
     }
     
     .chat-history {
-        padding-bottom: 100px;
+        padding-bottom: 80px;
         background: #0e1117;
         min-height: calc(100vh - 200px);
     }
@@ -347,8 +347,8 @@ st.markdown("""
     /* Ensure proper spacing on mobile */
     @media (max-width: 768px) {
         .chat-history {
-            padding-bottom: 120px !important;
-            min-height: calc(100vh - 250px) !important;
+            padding-bottom: 100px !important;
+            min-height: calc(100vh - 200px) !important;
         }
     }
     
@@ -459,8 +459,8 @@ for message in st.session_state.messages:
         </div>
         """, unsafe_allow_html=True)
 
-# Suggested Questions
-st.markdown("""
+# Removed suggested questions - commented out
+# st.markdown("""
 <div style="margin: 1rem 0; padding: 1rem; background: #1a1a1a; border-radius: 12px; border: 1px solid #333;">
     <h4 style="color: #4CAF50; margin: 0 0 0.8rem 0; font-family: 'Manrope', sans-serif;">💡 Suggested Questions:</h4>
     <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
@@ -537,7 +537,7 @@ function askQuestion(question) {
     }
 }
 </script>
-""", unsafe_allow_html=True)
+# """, unsafe_allow_html=True)
 
 # Chat input
 if prompt := st.chat_input("Ask me anything about my career, work or projects..."):
