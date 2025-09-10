@@ -161,7 +161,7 @@ st.markdown("""
     }
     
     .contact-links a {
-        color: #4CAF50 !important;
+        color: #007bff !important;
         text-decoration: none;
         margin: 0 0.3rem;
         font-weight: 500;
@@ -172,7 +172,7 @@ st.markdown("""
     }
     
     .contact-links a:hover {
-        color: #66BB6A !important;
+        color: #0056b3 !important;
         text-decoration: underline;
     }
     
