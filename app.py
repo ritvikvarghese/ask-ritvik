@@ -1,29 +1,29 @@
+
 import streamlit as st
 from dotenv import load_dotenv
 from openai import OpenAI
+from pypdf import PdfReader
 import os
 
 load_dotenv(override=True)
 openai = OpenAI()
 
-# Get content from environment variables (secure deployment)
-LINKEDIN_CONTENT = os.getenv('LINKEDIN_CONTENT', '')
-SUMMARY_CONTENT = os.getenv('SUMMARY_CONTENT', '')
-
-# If not in env vars, fall back to local files (for development only)
-if not LINKEDIN_CONTENT and os.path.exists('ask-me/me/linkedin.pdf'):
-    from pypdf import PdfReader
-    reader = PdfReader('ask-me/me/linkedin.pdf')
-    LINKEDIN_CONTENT = ""
+# Load data
+@st.cache_data
+def load_data():
+    reader = PdfReader("me/linkedin.pdf")
+    linkedin = ""
     for page in reader.pages:
         text = page.extract_text()
         if text:
-            LINKEDIN_CONTENT += text
+            linkedin += text
 
-if not SUMMARY_CONTENT and os.path.exists('ask-me/me/summary.txt'):
-    with open('ask-me/me/summary.txt', 'r', encoding='utf-8') as f:
-        SUMMARY_CONTENT = f.read()
+    with open("me/summary.txt", "r", encoding="utf-8") as f:
+        summary = f.read()
 
+    return linkedin, summary
+
+linkedin, summary = load_data()
 name = "Ritvik Varghese"
 
 system_prompt = f"""You are acting as {name}. You are answering questions on {name}'s website, 
@@ -34,10 +34,10 @@ Be professional and engaging, as if talking to a potential client or future empl
 If you don't know the answer, say so.
 
 ## Summary:
-{SUMMARY_CONTENT}
+{summary}
 
 ## LinkedIn Profile:
-{LINKEDIN_CONTENT}
+{linkedin}
 
 With this context, please chat with the user, always staying in character as {name}."""
 
@@ -66,16 +66,16 @@ for message in st.session_state.messages:
 if prompt := st.chat_input("Ask me anything about my career, work or projects..."):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
-    
+
     # Display user message
     with st.chat_message("user"):
         st.markdown(prompt)
-    
+
     # Get AI response
     with st.chat_message("assistant"):
         response = chat(prompt, st.session_state.messages[:-1])
         st.markdown(response)
-    
+
     # Add AI response to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})
 
