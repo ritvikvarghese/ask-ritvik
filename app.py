@@ -119,33 +119,32 @@ demo = gr.ChatInterface(
         text-align: left !important;
     }
     /* Reduce chat message font size for all devices - 10px for web */
-    /* Target multiple possible Gradio message selectors */
-    .message-wrap .message .markdown,
-    .message .markdown,
-    .chat-message .markdown,
-    .bot-message .markdown,
-    .user-message .markdown,
-    .gradio-container .message .markdown,
-    .gradio-container .chat-message .markdown {
+    /* More aggressive targeting of all possible Gradio elements */
+    .gradio-container * {
+        font-size: 10px !important;
+    }
+    .gradio-container h1 {
+        font-size: 2.5rem !important;
+    }
+    .gradio-container p:not(.message-wrap p):not(.message p):not(.chat-message p) {
+        font-size: 1.2rem !important;
+    }
+    /* Specific message targeting */
+    .gradio-container .message-wrap,
+    .gradio-container .message,
+    .gradio-container .chat-message,
+    .gradio-container .bot-message,
+    .gradio-container .user-message,
+    .gradio-container [class*="message"],
+    .gradio-container [class*="chat"] {
         font-size: 10px !important;
         line-height: 1.3 !important;
     }
-    .message-wrap .message .markdown p,
-    .message .markdown p,
-    .chat-message .markdown p,
-    .bot-message .markdown p,
-    .user-message .markdown p,
-    .gradio-container .message .markdown p,
-    .gradio-container .chat-message .markdown p {
-        font-size: 10px !important;
-        line-height: 1.3 !important;
-    }
-    /* Target all text content in messages */
-    .message-wrap .message,
-    .message,
-    .chat-message,
-    .bot-message,
-    .user-message {
+    .gradio-container .message-wrap *,
+    .gradio-container .message *,
+    .gradio-container .chat-message *,
+    .gradio-container .bot-message *,
+    .gradio-container .user-message * {
         font-size: 10px !important;
         line-height: 1.3 !important;
     }
@@ -171,33 +170,32 @@ demo = gr.ChatInterface(
             padding: 12px !important;
         }
         /* Adjust message font size on mobile - 8px */
-        /* Target multiple possible Gradio message selectors for mobile */
-        .message-wrap .message .markdown,
-        .message .markdown,
-        .chat-message .markdown,
-        .bot-message .markdown,
-        .user-message .markdown,
-        .gradio-container .message .markdown,
-        .gradio-container .chat-message .markdown {
+        /* More aggressive targeting for mobile */
+        .gradio-container * {
+            font-size: 8px !important;
+        }
+        .gradio-container h1 {
+            font-size: 1.8rem !important;
+        }
+        .gradio-container p:not(.message-wrap p):not(.message p):not(.chat-message p) {
+            font-size: 1rem !important;
+        }
+        /* Specific message targeting for mobile */
+        .gradio-container .message-wrap,
+        .gradio-container .message,
+        .gradio-container .chat-message,
+        .gradio-container .bot-message,
+        .gradio-container .user-message,
+        .gradio-container [class*="message"],
+        .gradio-container [class*="chat"] {
             font-size: 8px !important;
             line-height: 1.1 !important;
         }
-        .message-wrap .message .markdown p,
-        .message .markdown p,
-        .chat-message .markdown p,
-        .bot-message .markdown p,
-        .user-message .markdown p,
-        .gradio-container .message .markdown p,
-        .gradio-container .chat-message .markdown p {
-            font-size: 8px !important;
-            line-height: 1.1 !important;
-        }
-        /* Target all text content in messages for mobile */
-        .message-wrap .message,
-        .message,
-        .chat-message,
-        .bot-message,
-        .user-message {
+        .gradio-container .message-wrap *,
+        .gradio-container .message *,
+        .gradio-container .chat-message *,
+        .gradio-container .bot-message *,
+        .gradio-container .user-message * {
             font-size: 8px !important;
             line-height: 1.1 !important;
         }
