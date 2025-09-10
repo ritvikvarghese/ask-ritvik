@@ -120,35 +120,6 @@ demo = gr.ChatInterface(
     .message-wrap .message .markdown * {
         text-align: left !important;
     }
-    /* Fix auto-scroll behavior */
-    .gradio-container .chat-container {
-        scroll-behavior: auto !important;
-        overflow-anchor: none !important;
-    }
-    .gradio-container .chat-container .overflow-y-auto {
-        scroll-behavior: auto !important;
-        overflow-anchor: none !important;
-    }
-    /* Prevent auto-scroll to bottom */
-    .gradio-container .chat-container .overflow-y-auto::-webkit-scrollbar {
-        width: 6px;
-    }
-    .gradio-container .chat-container .overflow-y-auto::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-    }
-    .gradio-container .chat-container .overflow-y-auto::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 3px;
-    }
-    .gradio-container .chat-container .overflow-y-auto::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
-    /* Additional scroll control */
-    .gradio-container .chat-container .overflow-y-auto {
-        scroll-snap-type: none !important;
-        overscroll-behavior: contain !important;
-    }
     """
 )
 
