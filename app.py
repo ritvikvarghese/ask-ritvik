@@ -6,7 +6,12 @@ from pypdf import PdfReader
 import os
 
 # Set page config FIRST - before any other Streamlit commands
-st.set_page_config(page_title="Ritvik Varghese - AI Chat", layout="wide")
+st.set_page_config(
+    page_title="Chat with Ritvik - AI Entrepreneur Chat",
+    page_icon="🤖",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
 load_dotenv(override=True)
 openai = OpenAI()
@@ -49,122 +54,287 @@ def chat(message, history):
     response = openai.chat.completions.create(model="gpt-4o-mini", messages=messages)
     return response.choices[0].message.content
 
-# Streamlit UI with Enhanced Chat Styling
+# Add Meta Tags and Open Graph for Social Media
+st.markdown("""
+<head>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://ask.ritvik.io/robot-favicon.png">
+    <link rel="apple-touch-icon" href="https://ask.ritvik.io/robot-favicon.png">
+    <link rel="shortcut icon" href="https://ask.ritvik.io/robot-favicon.png">
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Chat with Ritvik Varghese - 3x entrepreneur who sold Imagined after scaling to $400k revenue. Ask about startups, business, and entrepreneurship.">
+    <meta name="keywords" content="Ritvik Varghese, entrepreneur, startup, business, AI chat, Imagined, Ripen, founder">
+    <meta name="author" content="Ritvik Varghese">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ask.ritvik.io/">
+    <meta property="og:title" content="Chat with Ritvik - AI Entrepreneur Chat">
+    <meta property="og:description" content="Chat with Ritvik - 3x entrepreneur who sold Imagined after scaling to $400k revenue. Ask about startups, business, and entrepreneurship.">
+    <meta property="og:image" content="https://ask.ritvik.io/meta-image.png">
+    <meta property="og:site_name" content="Ritvik Varghese">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ask.ritvik.io/">
+    <meta property="twitter:title" content="Chat with Ritvik - AI Entrepreneur Chat">
+    <meta property="twitter:description" content="Chat with Ritvik - 3x entrepreneur who sold Imagined after scaling to $400k revenue. Ask about startups, business, and entrepreneurship.">
+    <meta property="twitter:image" content="https://ask.ritvik.io/meta-image.png">
+    <meta property="twitter:creator" content="@ritvik_varghese">
+    
+    <!-- Additional Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Ritvik AI Chat">
+</head>
+""", unsafe_allow_html=True)
+
+# Streamlit UI with Mobile-First Responsive Design
 st.markdown("""
 <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
+    
+    /* Global Mobile-First Styles */
+    * {
+        box-sizing: border-box;
+    }
+    
+    /* Force dark theme on all elements */
+    .main .block-container {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+        max-width: 100% !important;
+    }
+    
+    /* Override Streamlit's default white background */
+    .stApp {
+        background-color: #0e1117 !important;
+        color: white !important;
+    }
+    
+    .stApp > header {
+        background-color: #0e1117 !important;
+    }
+    
+    .stApp > div {
+        background-color: #0e1117 !important;
+    }
+    
+    /* Header Styles - Mobile First */
     .main-header {
         text-align: center;
-        padding: 1rem 0;
+        padding: 0.8rem 0.5rem;
         margin-bottom: 0.5rem;
+        background: #0e1117;
     }
+    
     .main-header h1 {
-        color: #fff;
-        font-size: 2rem;
+        color: #fff !important;
+        font-size: 1.8rem;
         margin-bottom: 0.3rem;
         font-family: 'Manrope', sans-serif;
+        font-weight: 700;
     }
+    
     .main-header p {
-        color: #ccc;
-        font-size: 1rem;
+        color: #ccc !important;
+        font-size: 0.9rem;
         margin: 0 0 0.5rem 0;
         font-family: 'Manrope', sans-serif;
+        line-height: 1.4;
+        padding: 0 0.5rem;
     }
+    
     .contact-links {
         text-align: center;
-        padding: 0.5rem 0;
+        padding: 0.5rem 0.5rem;
         border-bottom: 1px solid #333;
         margin-bottom: 1rem;
+        background: #0e1117;
     }
+    
     .contact-links a {
-        color: #4CAF50;
+        color: #4CAF50 !important;
         text-decoration: none;
-        margin: 0 0.5rem;
+        margin: 0 0.3rem;
         font-weight: 500;
         font-family: 'Manrope', sans-serif;
+        font-size: 0.85rem;
+        display: inline-block;
+        padding: 0.2rem 0;
     }
+    
     .contact-links a:hover {
-        color: #66BB6A;
+        color: #66BB6A !important;
         text-decoration: underline;
     }
+    
+    /* Chat Container - Mobile Responsive */
     .chat-container {
-        max-width: 900px;
+        max-width: 100%;
         margin: 0 auto;
-        padding: 0 1rem;
-        min-height: 300px;
+        padding: 0 0.5rem;
+        min-height: 250px;
+        background: #0e1117;
     }
+    
     .chat-message {
-        margin: 0.5rem 0;
-        padding: 0.8rem 1.2rem;
-        border-radius: 18px;
-        max-width: 80%;
+        margin: 0.4rem 0;
+        padding: 0.7rem 1rem;
+        border-radius: 15px;
+        max-width: 85%;
         word-wrap: break-word;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        font-size: 0.9rem;
+        line-height: 1.4;
     }
+    
     .user-message {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        color: white !important;
         margin-left: auto;
         text-align: right;
     }
+    
     .assistant-message {
         background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
-        color: white;
+        color: white !important;
         margin-right: auto;
     }
-    .chat-input-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: #1a1a1a;
-        padding: 1rem;
-        border-top: 1px solid #333;
-        z-index: 1000;
+    
+    /* Chat Input - Mobile Optimized */
+    .stChatInput {
+        background: #0e1117 !important;
+        padding: 0.5rem !important;
+        border-top: 1px solid #333 !important;
     }
+    
     .stChatInput > div > div {
         background: #2d2d2d !important;
         border: 2px solid #4CAF50 !important;
-        border-radius: 25px !important;
-        padding: 0.75rem 1rem !important;
-        font-size: 1rem !important;
+        border-radius: 20px !important;
+        padding: 0.6rem 1rem !important;
+        font-size: 0.9rem !important;
         width: 100% !important;
-        max-width: 800px !important;
-        margin: 0 auto !important;
+        margin: 0 !important;
+        color: white !important;
     }
+    
     .stChatInput > div > div:focus {
         border-color: #66BB6A !important;
-        box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2) !important;
+        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
+        outline: none !important;
     }
+    
     .stChatInput > div > div::placeholder {
         color: #999 !important;
         font-family: 'Manrope', sans-serif !important;
     }
+    
+    /* Send Button - Mobile Friendly */
     .stButton > button {
         background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%) !important;
         color: white !important;
         border: none !important;
         border-radius: 50% !important;
-        width: 50px !important;
-        height: 50px !important;
-        font-size: 1.2rem !important;
-        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3) !important;
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 1rem !important;
+        box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3) !important;
+        margin-left: 0.5rem !important;
     }
+    
     .stButton > button:hover {
         background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%) !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4) !important;
     }
+    
     .chat-history {
-        padding-bottom: 80px;
+        padding-bottom: 60px;
+        background: #0e1117;
     }
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
+    
+    /* Tablet Styles */
+    @media (min-width: 768px) {
+        .main-header h1 {
+            font-size: 2.2rem;
+        }
+        
+        .main-header p {
+            font-size: 1rem;
+        }
+        
+        .chat-container {
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+        
+        .chat-message {
+            max-width: 80%;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+        }
+        
+        .contact-links a {
+            margin: 0 0.5rem;
+            font-size: 0.9rem;
+        }
+    }
+    
+    /* Desktop Styles */
+    @media (min-width: 1024px) {
+        .main-header h1 {
+            font-size: 2.5rem;
+        }
+        
+        .main-header p {
+            font-size: 1.1rem;
+        }
+        
+        .chat-container {
+            max-width: 900px;
+        }
+        
+        .chat-message {
+            max-width: 75%;
+        }
+        
+        .stChatInput > div > div {
+            font-size: 1rem;
+            padding: 0.75rem 1rem;
+        }
+    }
+    
+    /* Ensure all text is visible on dark background */
+    .stMarkdown, .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {
+        color: white !important;
+    }
+    
+    /* Fix any white backgrounds */
+    .stChatMessage {
+        background-color: transparent !important;
+    }
+    
+    .stChatMessage[data-testid="user-message"] {
+        background-color: transparent !important;
+    }
+    
+    .stChatMessage[data-testid="assistant-message"] {
+        background-color: transparent !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # Header
 st.markdown("""
 <div class="main-header">
-    <h1>🤖 Chat with Ritvik Varghese</h1>
+    <h1>🤖 Chat with Ritvik</h1>
     <p>I'm ritvik, a 3x entrepreneur, most recently sold imagined after scaling it to $400k/revenue. Ask me anything about my journey and work.</p>
     <div class="contact-links">
         <a href="https://ritvik.io">Website</a> | 
