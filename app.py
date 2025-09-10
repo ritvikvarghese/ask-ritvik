@@ -118,10 +118,10 @@ demo = gr.ChatInterface(
     .message-wrap .message .markdown * {
         text-align: left !important;
     }
-    /* Reduce chat message font size for all devices - 10px for web */
+    /* Reduce chat message font size for all devices - 13px for web */
     /* More aggressive targeting of all possible Gradio elements */
     .gradio-container * {
-        font-size: 10px !important;
+        font-size: 13px !important;
     }
     .gradio-container h1 {
         font-size: 2.5rem !important;
@@ -137,7 +137,7 @@ demo = gr.ChatInterface(
     .gradio-container .user-message,
     .gradio-container [class*="message"],
     .gradio-container [class*="chat"] {
-        font-size: 10px !important;
+        font-size: 13px !important;
         line-height: 1.3 !important;
     }
     .gradio-container .message-wrap *,
@@ -145,7 +145,7 @@ demo = gr.ChatInterface(
     .gradio-container .chat-message *,
     .gradio-container .bot-message *,
     .gradio-container .user-message * {
-        font-size: 10px !important;
+        font-size: 13px !important;
         line-height: 1.3 !important;
     }
     
@@ -169,10 +169,10 @@ demo = gr.ChatInterface(
             font-size: 16px !important;
             padding: 12px !important;
         }
-        /* Adjust message font size on mobile - 8px */
+        /* Adjust message font size on mobile - 11px */
         /* More aggressive targeting for mobile */
         .gradio-container * {
-            font-size: 8px !important;
+            font-size: 11px !important;
         }
         .gradio-container h1 {
             font-size: 1.8rem !important;
@@ -188,16 +188,16 @@ demo = gr.ChatInterface(
         .gradio-container .user-message,
         .gradio-container [class*="message"],
         .gradio-container [class*="chat"] {
-            font-size: 8px !important;
-            line-height: 1.1 !important;
+            font-size: 11px !important;
+            line-height: 1.2 !important;
         }
         .gradio-container .message-wrap *,
         .gradio-container .message *,
         .gradio-container .chat-message *,
         .gradio-container .bot-message *,
         .gradio-container .user-message * {
-            font-size: 8px !important;
-            line-height: 1.1 !important;
+            font-size: 11px !important;
+            line-height: 1.2 !important;
         }
         /* Make examples smaller on mobile */
         .gradio-container .examples {
