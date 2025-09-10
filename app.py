@@ -67,14 +67,12 @@ demo = gr.ChatInterface(
     chat,
     type="messages",
     title="ritvik varghese",
-    description="sk me about my career, work or projects.",
+    description="ask me about my work or projects.",
     examples=[
         "introduce yourself",
-        "tell me about your companies", 
         "what are your skills?", 
         "tell me about your latest company",
-        "what's your work experience?",
-        "what projects have you worked on?"
+        "what projects have you worked on?" 
     ],
     css="""
     .gradio-container {
@@ -119,6 +117,76 @@ demo = gr.ChatInterface(
     /* Target the actual message content */
     .message-wrap .message .markdown * {
         text-align: left !important;
+    }
+    
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+        .gradio-container h1 {
+            font-size: 1.8rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+        .gradio-container p {
+            font-size: 1rem !important;
+            margin-bottom: 1rem !important;
+        }
+        /* Make chat input larger on mobile */
+        .gradio-container .chat-input {
+            min-height: 50px !important;
+            font-size: 16px !important;
+        }
+        .gradio-container .chat-input textarea {
+            min-height: 50px !important;
+            font-size: 16px !important;
+            padding: 12px !important;
+        }
+        /* Adjust message font size on mobile */
+        .message-wrap .message .markdown {
+            font-size: 14px !important;
+            line-height: 1.4 !important;
+        }
+        .message-wrap .message .markdown p {
+            font-size: 14px !important;
+            line-height: 1.4 !important;
+        }
+        /* Make examples smaller on mobile */
+        .gradio-container .examples {
+            font-size: 12px !important;
+        }
+        .gradio-container .examples button {
+            font-size: 12px !important;
+            padding: 8px 12px !important;
+        }
+    }
+    
+    /* Fix scroll behavior - prevent auto-scroll to bottom */
+    .gradio-container .chat-container {
+        scroll-behavior: auto !important;
+    }
+    .gradio-container .chat-container .overflow-y-auto {
+        scroll-behavior: auto !important;
+        /* Prevent auto-scroll by setting max-height and overflow */
+        max-height: 70vh !important;
+        overflow-y: auto !important;
+    }
+    /* Ensure messages don't force scroll to bottom */
+    .gradio-container .message-wrap {
+        scroll-margin-top: 0 !important;
+        scroll-margin-bottom: 0 !important;
+    }
+    /* Custom scrollbar for better UX */
+    .gradio-container .chat-container .overflow-y-auto::-webkit-scrollbar {
+        width: 4px;
+    }
+    .gradio-container .chat-container .overflow-y-auto::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 2px;
+    }
+    .gradio-container .chat-container .overflow-y-auto::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 2px;
+    }
+    .gradio-container .chat-container .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
     """
 )
