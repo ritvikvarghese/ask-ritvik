@@ -118,6 +118,15 @@ demo = gr.ChatInterface(
     .message-wrap .message .markdown * {
         text-align: left !important;
     }
+    /* Reduce chat message font size for all devices */
+    .message-wrap .message .markdown {
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+    }
+    .message-wrap .message .markdown p {
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+    }
     
     /* Mobile optimizations */
     @media (max-width: 768px) {
@@ -141,12 +150,12 @@ demo = gr.ChatInterface(
         }
         /* Adjust message font size on mobile */
         .message-wrap .message .markdown {
-            font-size: 14px !important;
-            line-height: 1.4 !important;
+            font-size: 12px !important;
+            line-height: 1.3 !important;
         }
         .message-wrap .message .markdown p {
-            font-size: 14px !important;
-            line-height: 1.4 !important;
+            font-size: 12px !important;
+            line-height: 1.3 !important;
         }
         /* Make examples smaller on mobile */
         .gradio-container .examples {
