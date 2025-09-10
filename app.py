@@ -5,12 +5,7 @@ from pypdf import PdfReader
 import os
 
 # Set page config FIRST - before any other Streamlit commands
-st.set_page_config(
-    page_title="Chat with Ritvik",
-    page_icon="🤖",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
+st.set_page_config(page_title="Ritvik Varghese - AI Chat", layout="wide")
 
 load_dotenv(override=True)
 openai = OpenAI()
@@ -53,379 +48,37 @@ def chat(message, history):
     response = openai.chat.completions.create(model="gpt-4o-mini", messages=messages)
     return response.choices[0].message.content
 
-# Custom CSS for the entire app
-st.markdown("""
-<style>
-    /* Import Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    /* Reset and base styles */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    /* Main app styling */
-    .stApp {
-        background: #0f0f0f !important;
-        color: #ffffff !important;
-        font-family: 'Inter', sans-serif !important;
-    }
-    
-    /* Hide Streamlit's default elements */
-    .stApp > header {
-        display: none !important;
-    }
-    
-    .stApp > div[data-testid="stToolbar"] {
-        display: none !important;
-    }
-    
-    .stApp > div[data-testid="stDecoration"] {
-        display: none !important;
-    }
-    
-    /* Main container */
-    .main-container {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        background: #0f0f0f;
-        max-width: 100%;
-        margin: 0 auto;
-    }
-    
-    /* Header section */
-    .header-section {
-        padding: 0.5rem 1.5rem;
-        background: #0f0f0f;
-        border-bottom: 1px solid #2a2a2a;
-        flex-shrink: 0;
-    }
-    
-    .header-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 0.2rem;
-        font-family: 'Inter', sans-serif;
-    }
-    
-    .header-subtitle {
-        font-size: 0.85rem;
-        color: #a0a0a0;
-        font-weight: 400;
-        font-family: 'Inter', sans-serif;
-    }
-    
-    /* Chat container */
-    .chat-container {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background: #0f0f0f;
-    }
-    
-    /* Chat messages area */
-    .chat-messages {
-        flex: 1;
-        overflow-y: auto;
-        padding: 0.5rem 1.5rem;
-        background: #0f0f0f;
-        scroll-behavior: smooth;
-    }
-    
-    .chat-messages::-webkit-scrollbar {
-        width: 6px;
-    }
-    
-    .chat-messages::-webkit-scrollbar-track {
-        background: #1a1a1a;
-    }
-    
-    .chat-messages::-webkit-scrollbar-thumb {
-        background: #404040;
-        border-radius: 3px;
-    }
-    
-    .chat-messages::-webkit-scrollbar-thumb:hover {
-        background: #555555;
-    }
-    
-    /* Individual message styling */
-    .message {
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: flex-start;
-        gap: 0.75rem;
-    }
-    
-    .message.user {
-        flex-direction: row-reverse;
-    }
-    
-    .message-avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.875rem;
-        font-weight: 500;
-        flex-shrink: 0;
-    }
-    
-    .message.user .message-avatar {
-        background: #007bff;
-        color: white;
-    }
-    
-    .message.assistant .message-avatar {
-        background: #404040;
-        color: white;
-    }
-    
-    .message-content {
-        max-width: 70%;
-        padding: 0.75rem 1rem;
-        border-radius: 1rem;
-        font-size: 0.95rem;
-        line-height: 1.5;
-        word-wrap: break-word;
-    }
-    
-    .message.user .message-content {
-        background: #007bff;
-        color: white;
-        border-bottom-right-radius: 0.25rem;
-    }
-    
-    .message.assistant .message-content {
-        background: #1a1a1a;
-        color: #ffffff;
-        border: 1px solid #2a2a2a;
-        border-bottom-left-radius: 0.25rem;
-    }
-    
-    /* Input section */
-    .input-section {
-        padding: 0.75rem 1.5rem 1rem;
-        background: #0f0f0f;
-        border-top: 1px solid #2a2a2a;
-        flex-shrink: 0;
-    }
-    
-    .input-container {
-        position: relative;
-        display: flex;
-        align-items: center;
-        background: #1a1a1a;
-        border: 1px solid #2a2a2a;
-        border-radius: 1.5rem;
-        padding: 0.75rem 1rem;
-        transition: border-color 0.2s ease;
-    }
-    
-    .input-container:focus-within {
-        border-color: #007bff;
-    }
-    
-    .input-field {
-        flex: 1;
-        background: transparent;
-        border: none;
-        outline: none;
-        color: #ffffff;
-        font-size: 0.95rem;
-        font-family: 'Inter', sans-serif;
-        padding: 0.25rem 0.5rem;
-    }
-    
-    .input-field::placeholder {
-        color: #666666;
-    }
-    
-    .input-actions {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    
-    .send-button {
-        background: #007bff;
-        border: none;
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-    }
-    
-    .send-button:hover {
-        background: #0056b3;
-    }
-    
-    .send-button:disabled {
-        background: #404040;
-        cursor: not-allowed;
-    }
-    
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-        .header-section {
-            padding: 0.4rem 1rem;
-        }
-        
-        .header-title {
-            font-size: 1.25rem;
-        }
-        
-        .header-subtitle {
-            font-size: 0.8rem;
-        }
-        
-        .chat-messages {
-            padding: 0.5rem 1rem;
-        }
-        
-        .input-section {
-            padding: 0.5rem 1rem 0.75rem;
-        }
-        
-        .message-content {
-            max-width: 85%;
-        }
-    }
-    
-    /* Hide Streamlit's default chat input */
-    .stChatInput {
-        display: none !important;
-    }
-    
-    /* Hide Streamlit's default chat messages */
-    .stChatMessage {
-        display: none !important;
-    }
-</style>
-""", unsafe_allow_html=True)
+# Streamlit UI
+st.title("🤖 Chat with Ritvik Varghese")
+st.markdown("**Entrepreneur | Product Leader | 3x Founder | Ex-National Athlete**")
+st.markdown("Hey there! I'm Ritvik, a serial entrepreneur who's built and scaled companies to $400k+ revenue. Ask me anything about my journey, startups, or what I'm working on next.")                
 
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Header
-st.markdown("""
-<div class="main-container">
-    <div class="header-section">
-        <div class="header-title">Chat with Ritvik</div>
-        <div class="header-subtitle">I'm a 3x entrepreneur who sold Imagined after scaling it to $400k/revenue. Ask me anything about my journey and work.</div>
-    </div>
-""", unsafe_allow_html=True)
-
-# Chat messages area
-st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-st.markdown('<div class="chat-messages" id="chat-messages">', unsafe_allow_html=True)
-
 # Display chat messages
 for message in st.session_state.messages:
-    if message["role"] == "user":
-        st.markdown(f"""
-        <div class="message user">
-            <div class="message-avatar">U</div>
-            <div class="message-content">{message["content"]}</div>
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown(f"""
-        <div class="message assistant">
-            <div class="message-avatar">R</div>
-            <div class="message-content">{message["content"]}</div>
-        </div>
-        """, unsafe_allow_html=True)
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
-st.markdown('</div>', unsafe_allow_html=True)  # Close chat-messages
-
-# Input section
-st.markdown("""
-<div class="input-section">
-    <div class="input-container">
-        <input type="text" class="input-field" placeholder="Ask anything" id="chat-input">
-        <div class="input-actions">
-            <button class="send-button" id="send-button">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="22" y1="2" x2="11" y2="13"/>
-                    <polygon points="22,2 15,22 11,13 2,9 22,2"/>
-                </svg>
-            </button>
-        </div>
-    </div>
-</div>
-</div>
-""", unsafe_allow_html=True)
-
-# Use a hidden text input for form submission
-with st.form("chat_form", clear_on_submit=True):
-    user_input = st.text_input("", placeholder="Ask anything", key="user_input", label_visibility="collapsed")
-    submitted = st.form_submit_button("Send", type="primary")
-
-# JavaScript to sync custom input with form
-st.markdown("""
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const customInput = document.getElementById('chat-input');
-    const formInput = document.querySelector('input[data-testid="textInput"]');
-    const sendButton = document.getElementById('send-button');
-    const formSubmitButton = document.querySelector('button[data-testid="baseButton-primary"]');
-    
-    if (customInput && formInput) {
-        // Sync custom input with form input
-        customInput.addEventListener('input', function() {
-            formInput.value = this.value;
-            formInput.dispatchEvent(new Event('input', { bubbles: true }));
-        });
-        
-        // Sync form input with custom input
-        formInput.addEventListener('input', function() {
-            customInput.value = this.value;
-        });
-        
-        // Handle send button click
-        sendButton.addEventListener('click', function() {
-            if (customInput.value.trim()) {
-                formSubmitButton.click();
-            }
-        });
-        
-        // Handle enter key
-        customInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                if (this.value.trim()) {
-                    formSubmitButton.click();
-                }
-            }
-        });
-    }
-});
-</script>
-""", unsafe_allow_html=True)
-
-# Handle form submission
-if submitted and user_input:
+# Chat input
+if prompt := st.chat_input("Ask me anything about my career, work or projects..."):
     # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": user_input})
-    
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+    # Display user message
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
     # Get AI response
-    response = chat(user_input, st.session_state.messages[:-1])
-    
+    with st.chat_message("assistant"):
+        response = chat(prompt, st.session_state.messages[:-1])
+        st.markdown(response)
+
     # Add AI response to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})
-    
-    # Rerun to update the display
-    st.rerun()
+
+# Footer
+st.markdown("---")
+st.markdown("**Connect with me:** [Website](https://ritvik.io) | [LinkedIn](https://linkedin.com/in/ritvikvarghese) | [Twitter](https://twitter.com/ritvikvarghese) | ritvikvarghese@gmail.com")

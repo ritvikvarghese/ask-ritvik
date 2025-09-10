@@ -1,20 +1,28 @@
-# Ritvik Varghese AI Chat
+# Chat with Ritvik
 
-A personal AI chatbot that represents Ritvik Varghese, built with Streamlit and OpenAI.
-
-## Features
-- Chat with Ritvik's AI persona
-- Access to LinkedIn profile and background
-- Professional Q&A about career and experience
-
-## Deployment
-This app can be deployed on:
-- Streamlit Cloud
-- Railway
-- Render
-- Heroku
+A simple AI chat interface where users can ask questions about Ritvik Varghese's career, background, and experience.
 
 ## Setup
-1. Install requirements: `pip install -r requirements.txt`
-2. Set up environment variables for OpenAI API key
-3. Run: `streamlit run app.py`
+
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+2. Set up environment variables:
+```bash
+cp .env.example .env
+# Add your OpenAI API key to .env
+```
+
+3. Run the app:
+```bash
+streamlit run app.py
+```
+
+## Files
+
+- `app.py` - Main Streamlit application
+- `me/linkedin.pdf` - Ritvik's LinkedIn profile data
+- `me/summary.txt` - Ritvik's background summary
+- `requirements.txt` - Python dependencies
