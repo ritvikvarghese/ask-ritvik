@@ -123,9 +123,11 @@ demo = gr.ChatInterface(
     /* Fix auto-scroll behavior */
     .gradio-container .chat-container {
         scroll-behavior: auto !important;
+        overflow-anchor: none !important;
     }
     .gradio-container .chat-container .overflow-y-auto {
         scroll-behavior: auto !important;
+        overflow-anchor: none !important;
     }
     /* Prevent auto-scroll to bottom */
     .gradio-container .chat-container .overflow-y-auto::-webkit-scrollbar {
@@ -142,41 +144,19 @@ demo = gr.ChatInterface(
     .gradio-container .chat-container .overflow-y-auto::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
+    /* Additional scroll control */
+    .gradio-container .chat-container .overflow-y-auto {
+        scroll-snap-type: none !important;
+        overscroll-behavior: contain !important;
+    }
     """
 )
 
 if __name__ == "__main__":
     # Railway configuration
     port = int(os.environ.get("PORT", 8080))
-    
-    # Add custom JavaScript to control scrolling
     demo.launch(
         server_name="0.0.0.0",
         server_port=port,
-        share=True,  # Enable share for public access
-        js="""
-        // Prevent auto-scroll to bottom
-        document.addEventListener('DOMContentLoaded', function() {
-            const chatContainer = document.querySelector('.chat-container .overflow-y-auto');
-            if (chatContainer) {
-                // Disable smooth scrolling
-                chatContainer.style.scrollBehavior = 'auto';
-                
-                // Prevent auto-scroll on new messages
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.type === 'childList') {
-                            // Don't auto-scroll, let user control
-                            return;
-                        }
-                    });
-                });
-                
-                observer.observe(chatContainer, {
-                    childList: true,
-                    subtree: true
-                });
-            }
-        });
-        """
+        share=True  # Enable share for public access
     )
