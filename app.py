@@ -98,7 +98,7 @@ st.markdown("""
     
     /* Header section */
     .header-section {
-        padding: 1rem 1.5rem;
+        padding: 0.5rem 1.5rem;
         background: #0f0f0f;
         border-bottom: 1px solid #2a2a2a;
         flex-shrink: 0;
@@ -108,7 +108,7 @@ st.markdown("""
         font-size: 1.5rem;
         font-weight: 600;
         color: #ffffff;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.2rem;
         font-family: 'Inter', sans-serif;
     }
     
@@ -280,7 +280,7 @@ st.markdown("""
     /* Mobile responsiveness */
     @media (max-width: 768px) {
         .header-section {
-            padding: 0.75rem 1rem;
+            padding: 0.4rem 1rem;
         }
         
         .header-title {
@@ -370,70 +370,59 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# JavaScript for handling input
+# Use a hidden text input for form submission
+with st.form("chat_form", clear_on_submit=True):
+    user_input = st.text_input("", placeholder="Ask anything", key="user_input", label_visibility="collapsed")
+    submitted = st.form_submit_button("Send", type="primary")
+
+# JavaScript to sync custom input with form
 st.markdown("""
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const input = document.getElementById('chat-input');
+    const customInput = document.getElementById('chat-input');
+    const formInput = document.querySelector('input[data-testid="textInput"]');
     const sendButton = document.getElementById('send-button');
-    const chatMessages = document.getElementById('chat-messages');
+    const formSubmitButton = document.querySelector('button[data-testid="baseButton-primary"]');
     
-    function sendMessage() {
-        const message = input.value.trim();
-        if (message) {
-            // Add user message to chat
-            const userMessageDiv = document.createElement('div');
-            userMessageDiv.className = 'message user';
-            userMessageDiv.innerHTML = `
-                <div class="message-avatar">U</div>
-                <div class="message-content">${message}</div>
-            `;
-            chatMessages.appendChild(userMessageDiv);
-            
-            // Clear input
-            input.value = '';
-            
-            // Scroll to bottom
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // Send to Streamlit
-            const event = new CustomEvent('sendMessage', { detail: message });
-            window.parent.document.dispatchEvent(event);
-        }
+    if (customInput && formInput) {
+        // Sync custom input with form input
+        customInput.addEventListener('input', function() {
+            formInput.value = this.value;
+            formInput.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+        
+        // Sync form input with custom input
+        formInput.addEventListener('input', function() {
+            customInput.value = this.value;
+        });
+        
+        // Handle send button click
+        sendButton.addEventListener('click', function() {
+            if (customInput.value.trim()) {
+                formSubmitButton.click();
+            }
+        });
+        
+        // Handle enter key
+        customInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                if (this.value.trim()) {
+                    formSubmitButton.click();
+                }
+            }
+        });
     }
-    
-    sendButton.addEventListener('click', sendMessage);
-    
-    input.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-    
-    // Listen for messages from Streamlit
-    window.addEventListener('message', function(event) {
-        if (event.data.type === 'assistantMessage') {
-            const assistantMessageDiv = document.createElement('div');
-            assistantMessageDiv.className = 'message assistant';
-            assistantMessageDiv.innerHTML = `
-                <div class="message-avatar">R</div>
-                <div class="message-content">${event.data.message}</div>
-            `;
-            chatMessages.appendChild(assistantMessageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-    });
 });
 </script>
 """, unsafe_allow_html=True)
 
-# Handle chat input
-if prompt := st.chat_input("Ask anything", key="chat_input"):
+# Handle form submission
+if submitted and user_input:
     # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state.messages.append({"role": "user", "content": user_input})
     
     # Get AI response
-    response = chat(prompt, st.session_state.messages[:-1])
+    response = chat(user_input, st.session_state.messages[:-1])
     
     # Add AI response to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})
