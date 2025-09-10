@@ -49,49 +49,115 @@ def chat(message, history):
     response = openai.chat.completions.create(model="gpt-4o-mini", messages=messages)
     return response.choices[0].message.content
 
-# Streamlit UI with Chat Styling
+# Streamlit UI with Enhanced Chat Styling
 st.markdown("""
 <style>
     .main-header {
         text-align: center;
         padding: 2rem 0;
-        border-bottom: 1px solid #333;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
     .main-header h1 {
         color: #fff;
         font-size: 2.5rem;
         margin-bottom: 0.5rem;
+        font-family: 'Manrope', sans-serif;
     }
     .main-header p {
         color: #ccc;
         font-size: 1.1rem;
-        margin: 0;
+        margin: 0 0 1rem 0;
+        font-family: 'Manrope', sans-serif;
+    }
+    .contact-links {
+        text-align: center;
+        padding: 1rem 0;
+        border-bottom: 2px solid #333;
+        margin-bottom: 2rem;
+    }
+    .contact-links a {
+        color: #4CAF50;
+        text-decoration: none;
+        margin: 0 0.5rem;
+        font-weight: 500;
+        font-family: 'Manrope', sans-serif;
+    }
+    .contact-links a:hover {
+        color: #66BB6A;
+        text-decoration: underline;
     }
     .chat-container {
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
         padding: 0 1rem;
+        min-height: 400px;
     }
-    .footer {
-        text-align: center;
-        padding: 2rem 0;
-        border-top: 1px solid #333;
-        margin-top: 2rem;
-        color: #ccc;
+    .chat-message {
+        margin: 1rem 0;
+        padding: 1rem 1.5rem;
+        border-radius: 18px;
+        max-width: 80%;
+        word-wrap: break-word;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
-    .stChatMessage {
-        background-color: #1e1e1e;
-        border-radius: 12px;
+    .user-message {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        margin-left: auto;
+        text-align: right;
+    }
+    .assistant-message {
+        background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+        color: white;
+        margin-right: auto;
+    }
+    .chat-input-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #1a1a1a;
         padding: 1rem;
-        margin: 0.5rem 0;
+        border-top: 1px solid #333;
+        z-index: 1000;
     }
-    .stChatMessage[data-testid="user-message"] {
-        background-color: #2d2d2d;
+    .stChatInput > div > div {
+        background: #2d2d2d !important;
+        border: 2px solid #4CAF50 !important;
+        border-radius: 25px !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 1rem !important;
+        width: 100% !important;
+        max-width: 800px !important;
+        margin: 0 auto !important;
     }
-    .stChatMessage[data-testid="assistant-message"] {
-        background-color: #1e1e1e;
+    .stChatInput > div > div:focus {
+        border-color: #66BB6A !important;
+        box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2) !important;
     }
+    .stChatInput > div > div::placeholder {
+        color: #999 !important;
+        font-family: 'Manrope', sans-serif !important;
+    }
+    .stButton > button {
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 50% !important;
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.2rem !important;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3) !important;
+    }
+    .stButton > button:hover {
+        background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4) !important;
+    }
+    .chat-history {
+        padding-bottom: 100px;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
 </style>
 """, unsafe_allow_html=True)
 
@@ -100,46 +166,60 @@ st.markdown("""
 <div class="main-header">
     <h1>🤖 Chat with Ritvik Varghese</h1>
     <p>I'm ritvik, a 3x entrepreneur, most recently sold imagined after scaling it to $400k/revenue. Ask me anything about my journey and work.</p>
+    <div class="contact-links">
+        <a href="https://ritvik.io">Website</a> | 
+        <a href="https://linkedin.com/in/ritvikvarghese">LinkedIn</a> | 
+        <a href="https://twitter.com/ritvikvarghese">Twitter</a> | 
+        <a href="mailto:ritvikvarghese@gmail.com">ritvikvarghese@gmail.com</a>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
 # Chat container
-st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+st.markdown('<div class="chat-container chat-history">', unsafe_allow_html=True)
 
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display chat messages
+# Display chat messages with custom styling
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+    if message["role"] == "user":
+        st.markdown(f"""
+        <div class="chat-message user-message">
+            {message["content"]}
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown(f"""
+        <div class="chat-message assistant-message">
+            {message["content"]}
+        </div>
+        """, unsafe_allow_html=True)
 
 # Chat input
 if prompt := st.chat_input("Ask me anything about my career, work or projects..."):
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # Display user message
-    with st.chat_message("user"):
-        st.markdown(prompt)
+    # Display user message with custom styling
+    st.markdown(f"""
+    <div class="chat-message user-message">
+        {prompt}
+    </div>
+    """, unsafe_allow_html=True)
 
     # Get AI response
-    with st.chat_message("assistant"):
-        response = chat(prompt, st.session_state.messages[:-1])
-        st.markdown(response)
+    response = chat(prompt, st.session_state.messages[:-1])
+    
+    # Display AI response with custom styling
+    st.markdown(f"""
+    <div class="chat-message assistant-message">
+        {response}
+    </div>
+    """, unsafe_allow_html=True)
 
     # Add AI response to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})
 
 st.markdown('</div>', unsafe_allow_html=True)
-
-# Footer
-st.markdown("""
-<div class="footer">
-    <strong>Connect with me:</strong> <a href="https://ritvik.io" style="color: #4CAF50;">Website</a> | 
-    <a href="https://linkedin.com/in/ritvikvarghese" style="color: #4CAF50;">LinkedIn</a> | 
-    <a href="https://twitter.com/ritvikvarghese" style="color: #4CAF50;">Twitter</a> | 
-    <a href="mailto:ritvikvarghese@gmail.com" style="color: #4CAF50;">ritvikvarghese@gmail.com</a>
-</div>
-""", unsafe_allow_html=True)
