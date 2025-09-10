@@ -51,8 +51,7 @@ def chat(message, history):
 
 # Streamlit UI
 st.title("🤖 Chat with Ritvik Varghese")
-st.markdown("**Entrepreneur | Product Leader | 3x Founder | Ex-National Athlete**")
-st.markdown("Hey there! I'm Ritvik, a serial entrepreneur who's built and scaled companies to $400k+ revenue. Ask me anything about my journey, startups, or what I'm working on next.")
+st.markdown("I'm ritvik, a 3x entrepreneur, most recently sold imagined after scaling it to $400k/revenue. Ask me anything about my journey and work.")
 
 # Initialize chat history
 if "messages" not in st.session_state:
