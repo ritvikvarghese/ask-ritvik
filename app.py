@@ -7,14 +7,17 @@ import os
 load_dotenv(override=True)
 
 # Initialize OpenAI client with error handling
-try:
-    openai = OpenAI()
-    # Test the API key
-    openai.models.list()
-except Exception as e:
-    print(f"OpenAI API error: {e}")
-    print("Please set OPENAI_API_KEY environment variable")
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    print("OPENAI_API_KEY environment variable not set")
     openai = None
+else:
+    try:
+        openai = OpenAI(api_key=api_key)
+        print("OpenAI client initialized successfully")
+    except Exception as e:
+        print(f"OpenAI API error: {e}")
+        openai = None
 
 # Load data
 def load_data():
