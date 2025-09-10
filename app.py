@@ -118,14 +118,36 @@ demo = gr.ChatInterface(
     .message-wrap .message .markdown * {
         text-align: left !important;
     }
-    /* Reduce chat message font size for all devices */
-    .message-wrap .message .markdown {
-        font-size: 13px !important;
-        line-height: 1.4 !important;
+    /* Reduce chat message font size for all devices - 10px for web */
+    /* Target multiple possible Gradio message selectors */
+    .message-wrap .message .markdown,
+    .message .markdown,
+    .chat-message .markdown,
+    .bot-message .markdown,
+    .user-message .markdown,
+    .gradio-container .message .markdown,
+    .gradio-container .chat-message .markdown {
+        font-size: 10px !important;
+        line-height: 1.3 !important;
     }
-    .message-wrap .message .markdown p {
-        font-size: 13px !important;
-        line-height: 1.4 !important;
+    .message-wrap .message .markdown p,
+    .message .markdown p,
+    .chat-message .markdown p,
+    .bot-message .markdown p,
+    .user-message .markdown p,
+    .gradio-container .message .markdown p,
+    .gradio-container .chat-message .markdown p {
+        font-size: 10px !important;
+        line-height: 1.3 !important;
+    }
+    /* Target all text content in messages */
+    .message-wrap .message,
+    .message,
+    .chat-message,
+    .bot-message,
+    .user-message {
+        font-size: 10px !important;
+        line-height: 1.3 !important;
     }
     
     /* Mobile optimizations */
@@ -148,14 +170,36 @@ demo = gr.ChatInterface(
             font-size: 16px !important;
             padding: 12px !important;
         }
-        /* Adjust message font size on mobile */
-        .message-wrap .message .markdown {
-            font-size: 10px !important;
-            line-height: 1.2 !important;
+        /* Adjust message font size on mobile - 8px */
+        /* Target multiple possible Gradio message selectors for mobile */
+        .message-wrap .message .markdown,
+        .message .markdown,
+        .chat-message .markdown,
+        .bot-message .markdown,
+        .user-message .markdown,
+        .gradio-container .message .markdown,
+        .gradio-container .chat-message .markdown {
+            font-size: 8px !important;
+            line-height: 1.1 !important;
         }
-        .message-wrap .message .markdown p {
-            font-size: 10px !important;
-            line-height: 1.2 !important;
+        .message-wrap .message .markdown p,
+        .message .markdown p,
+        .chat-message .markdown p,
+        .bot-message .markdown p,
+        .user-message .markdown p,
+        .gradio-container .message .markdown p,
+        .gradio-container .chat-message .markdown p {
+            font-size: 8px !important;
+            line-height: 1.1 !important;
+        }
+        /* Target all text content in messages for mobile */
+        .message-wrap .message,
+        .message,
+        .chat-message,
+        .bot-message,
+        .user-message {
+            font-size: 8px !important;
+            line-height: 1.1 !important;
         }
         /* Make examples smaller on mobile */
         .gradio-container .examples {
@@ -165,17 +209,31 @@ demo = gr.ChatInterface(
             font-size: 12px !important;
             padding: 8px 12px !important;
         }
+        /* Mobile chat box sizing */
+        .gradio-container .chat-container {
+            max-width: 95% !important;
+            margin: 0 auto !important;
+        }
+        .gradio-container .chat-container .overflow-y-auto {
+            max-height: 75vh !important;
+            min-height: 400px !important;
+        }
     }
     
-    /* Fix scroll behavior - prevent auto-scroll to bottom */
+    /* Increase chat box size - wider and longer */
     .gradio-container .chat-container {
         scroll-behavior: auto !important;
+        width: 100% !important;
+        max-width: 800px !important;
+        margin: 0 auto !important;
     }
     .gradio-container .chat-container .overflow-y-auto {
         scroll-behavior: auto !important;
-        /* Prevent auto-scroll by setting max-height and overflow */
-        max-height: 70vh !important;
+        /* Make chat area taller and wider */
+        max-height: 80vh !important;
+        min-height: 500px !important;
         overflow-y: auto !important;
+        width: 100% !important;
     }
     /* Ensure messages don't force scroll to bottom */
     .gradio-container .message-wrap {
