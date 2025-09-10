@@ -118,10 +118,10 @@ demo = gr.ChatInterface(
     .message-wrap .message .markdown * {
         text-align: left !important;
     }
-    /* Reduce chat message font size for all devices - 13px for web */
+    /* Reduce chat message font size for all devices - 16px for web */
     /* More aggressive targeting of all possible Gradio elements */
     .gradio-container * {
-        font-size: 13px !important;
+        font-size: 16px !important;
     }
     .gradio-container h1 {
         font-size: 2.5rem !important;
@@ -137,16 +137,16 @@ demo = gr.ChatInterface(
     .gradio-container .user-message,
     .gradio-container [class*="message"],
     .gradio-container [class*="chat"] {
-        font-size: 13px !important;
-        line-height: 1.3 !important;
+        font-size: 16px !important;
+        line-height: 1.4 !important;
     }
     .gradio-container .message-wrap *,
     .gradio-container .message *,
     .gradio-container .chat-message *,
     .gradio-container .bot-message *,
     .gradio-container .user-message * {
-        font-size: 13px !important;
-        line-height: 1.3 !important;
+        font-size: 16px !important;
+        line-height: 1.4 !important;
     }
     
     /* Mobile optimizations */
@@ -169,10 +169,10 @@ demo = gr.ChatInterface(
             font-size: 16px !important;
             padding: 12px !important;
         }
-        /* Adjust message font size on mobile - 11px */
+        /* Adjust message font size on mobile - 13px */
         /* More aggressive targeting for mobile */
         .gradio-container * {
-            font-size: 11px !important;
+            font-size: 13px !important;
         }
         .gradio-container h1 {
             font-size: 1.8rem !important;
@@ -188,16 +188,16 @@ demo = gr.ChatInterface(
         .gradio-container .user-message,
         .gradio-container [class*="message"],
         .gradio-container [class*="chat"] {
-            font-size: 11px !important;
-            line-height: 1.2 !important;
+            font-size: 13px !important;
+            line-height: 1.3 !important;
         }
         .gradio-container .message-wrap *,
         .gradio-container .message *,
         .gradio-container .chat-message *,
         .gradio-container .bot-message *,
         .gradio-container .user-message * {
-            font-size: 11px !important;
-            line-height: 1.2 !important;
+            font-size: 13px !important;
+            line-height: 1.3 !important;
         }
         /* Make examples smaller on mobile */
         .gradio-container .examples {
@@ -232,6 +232,35 @@ demo = gr.ChatInterface(
         min-height: 500px !important;
         overflow-y: auto !important;
         width: 100% !important;
+    }
+    
+    /* AGGRESSIVE ANTI-SCROLL FIX */
+    /* Prevent all auto-scrolling behavior */
+    .gradio-container * {
+        scroll-behavior: auto !important;
+        scroll-margin: 0 !important;
+        scroll-padding: 0 !important;
+    }
+    .gradio-container .chat-container,
+    .gradio-container .chat-container *,
+    .gradio-container [class*="chat"],
+    .gradio-container [class*="message"],
+    .gradio-container .overflow-y-auto,
+    .gradio-container .overflow-auto {
+        scroll-behavior: auto !important;
+        scroll-margin: 0 !important;
+        scroll-padding: 0 !important;
+        overflow-anchor: none !important;
+        scroll-snap-type: none !important;
+        overscroll-behavior: contain !important;
+    }
+    /* Disable scroll-to-bottom on new messages */
+    .gradio-container .message-wrap,
+    .gradio-container .message,
+    .gradio-container .chat-message {
+        scroll-margin-top: 0 !important;
+        scroll-margin-bottom: 0 !important;
+        scroll-margin: 0 !important;
     }
     /* Ensure messages don't force scroll to bottom */
     .gradio-container .message-wrap {
