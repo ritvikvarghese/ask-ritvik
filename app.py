@@ -108,8 +108,8 @@ st.markdown("""
     
     /* Force dark theme on all elements */
     .main .block-container {
-        padding-top: 1rem !important;
-        padding-bottom: 1rem !important;
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
         max-width: 100% !important;
     }
     
@@ -130,45 +130,45 @@ st.markdown("""
     /* Header Styles - Mobile First */
     .main-header {
         text-align: center;
-        padding: 0.5rem 0.3rem;
-        margin-bottom: 0.3rem;
+        padding: 0.3rem 0.2rem;
+        margin-bottom: 0.2rem;
         background: #0e1117;
     }
     
     .main-header h1 {
         color: #fff !important;
-        font-size: 1.8rem;
-        margin-bottom: 0.3rem;
+        font-size: 1.6rem;
+        margin-bottom: 0.2rem;
         font-family: 'Manrope', sans-serif;
         font-weight: 700;
     }
     
     .main-header p {
         color: #ccc !important;
-        font-size: 0.9rem;
-        margin: 0 0 0.5rem 0;
+        font-size: 0.8rem;
+        margin: 0 0 0.3rem 0;
         font-family: 'Manrope', sans-serif;
-        line-height: 1.4;
-        padding: 0 0.5rem;
+        line-height: 1.3;
+        padding: 0 0.3rem;
     }
     
     .contact-links {
         text-align: center;
-        padding: 0.3rem 0.3rem;
+        padding: 0.2rem 0.2rem;
         border-bottom: 1px solid #333;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
         background: #0e1117;
     }
     
     .contact-links a {
         color: #007bff !important;
         text-decoration: none;
-        margin: 0 0.3rem;
+        margin: 0 0.2rem;
         font-weight: 500;
         font-family: 'Manrope', sans-serif;
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         display: inline-block;
-        padding: 0.2rem 0;
+        padding: 0.1rem 0;
     }
     
     .contact-links a:hover {
@@ -180,20 +180,20 @@ st.markdown("""
     .chat-container {
         max-width: 100%;
         margin: 0 auto;
-        padding: 0 0.5rem;
-        min-height: 250px;
+        padding: 0 0.3rem;
         background: #0e1117;
+        min-height: 200px;
     }
     
     .chat-message {
-        margin: 0.4rem 0;
-        padding: 0.7rem 1rem;
-        border-radius: 15px;
+        margin: 0.3rem 0;
+        padding: 0.5rem 0.8rem;
+        border-radius: 12px;
         max-width: 85%;
         word-wrap: break-word;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        font-size: 0.9rem;
-        line-height: 1.4;
+        font-size: 0.85rem;
+        line-height: 1.3;
     }
     
     .user-message {
@@ -212,18 +212,19 @@ st.markdown("""
     /* Chat Input - Mobile Optimized */
     .stChatInput {
         background: #0e1117 !important;
-        padding: 0.5rem !important;
+        padding: 0.3rem !important;
         border-top: 1px solid #333 !important;
         position: relative !important;
         z-index: 10 !important;
+        width: 100% !important;
     }
     
     .stChatInput > div > div {
         background: #2d2d2d !important;
         border: 2px solid #ffffff !important;
         border-radius: 20px !important;
-        padding: 0.6rem 1rem !important;
-        font-size: 0.9rem !important;
+        padding: 0.5rem 0.8rem !important;
+        font-size: 0.85rem !important;
         width: 100% !important;
         margin: 0 !important;
         color: white !important;
@@ -283,14 +284,14 @@ st.markdown("""
     @media (max-width: 768px) {
         .stChatInput {
             background: #0e1117 !important;
-            padding: 0.8rem 0.5rem !important;
+            padding: 0.4rem 0.3rem !important;
             border-top: 1px solid #333 !important;
         }
         
         .stChatInput > div > div {
             background: #2d2d2d !important;
             color: white !important;
-            border: 2px solid #4CAF50 !important;
+            border: 2px solid #ffffff !important;
             -webkit-appearance: none !important;
             -moz-appearance: none !important;
             appearance: none !important;
@@ -307,7 +308,7 @@ st.markdown("""
         
         /* Ensure chat history has proper spacing */
         .chat-history {
-            padding-bottom: 100px !important;
+            margin-bottom: 0.3rem !important;
         }
     }
     
@@ -315,7 +316,7 @@ st.markdown("""
     @media (max-width: 480px) {
         .stChatInput > div > div {
             font-size: 16px !important;
-            padding: 0.8rem 1rem !important;
+            padding: 0.5rem 0.8rem !important;
         }
     }
     
@@ -339,16 +340,20 @@ st.markdown("""
     }
     
     .chat-history {
-        padding-bottom: 80px;
+        padding: 0.5rem 0;
         background: #0e1117;
-        min-height: calc(100vh - 200px);
+        margin-bottom: 0.5rem;
+        min-height: 300px;
+        max-height: 60vh;
+        overflow-y: auto;
     }
     
     /* Ensure proper spacing on mobile */
     @media (max-width: 768px) {
         .chat-history {
-            padding-bottom: 100px !important;
-            min-height: calc(100vh - 200px) !important;
+            min-height: 250px !important;
+            max-height: 50vh !important;
+            margin-bottom: 0.3rem !important;
         }
     }
     
@@ -437,8 +442,9 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Chat container
-st.markdown('<div class="chat-container chat-history">', unsafe_allow_html=True)
+# Chat container with separate sections
+st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+st.markdown('<div class="chat-history">', unsafe_allow_html=True)
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -458,6 +464,9 @@ for message in st.session_state.messages:
             {message["content"]}
         </div>
         """, unsafe_allow_html=True)
+
+# Close chat history div
+st.markdown('</div>', unsafe_allow_html=True)
 
 # Suggested questions removed
 # Chat input
