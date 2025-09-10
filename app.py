@@ -214,6 +214,8 @@ st.markdown("""
         background: #0e1117 !important;
         padding: 0.5rem !important;
         border-top: 1px solid #333 !important;
+        position: relative !important;
+        z-index: 10 !important;
     }
     
     .stChatInput > div > div {
@@ -225,17 +227,96 @@ st.markdown("""
         width: 100% !important;
         margin: 0 !important;
         color: white !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
     }
     
     .stChatInput > div > div:focus {
         border-color: #66BB6A !important;
         box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
         outline: none !important;
+        background: #2d2d2d !important;
     }
     
     .stChatInput > div > div::placeholder {
         color: #999 !important;
         font-family: 'Manrope', sans-serif !important;
+    }
+    
+    /* Force dark background on all input elements */
+    input[type="text"], input[type="search"], textarea {
+        background-color: #2d2d2d !important;
+        color: white !important;
+        border: 2px solid #4CAF50 !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+    }
+    
+    input[type="text"]:focus, input[type="search"]:focus, textarea:focus {
+        background-color: #2d2d2d !important;
+        color: white !important;
+        border-color: #66BB6A !important;
+        outline: none !important;
+    }
+    
+    /* Override Streamlit's default input styling */
+    .stTextInput > div > div > input {
+        background-color: #2d2d2d !important;
+        color: white !important;
+        border: 2px solid #4CAF50 !important;
+        border-radius: 20px !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+    }
+    
+    .stTextInput > div > div > input:focus {
+        background-color: #2d2d2d !important;
+        color: white !important;
+        border-color: #66BB6A !important;
+        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
+    }
+    
+    /* Mobile-specific input fixes */
+    @media (max-width: 768px) {
+        .stChatInput {
+            background: #0e1117 !important;
+            padding: 0.8rem 0.5rem !important;
+            border-top: 1px solid #333 !important;
+        }
+        
+        .stChatInput > div > div {
+            background: #2d2d2d !important;
+            color: white !important;
+            border: 2px solid #4CAF50 !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+            font-size: 16px !important; /* Prevents zoom on iOS */
+        }
+        
+        input[type="text"], input[type="search"] {
+            background-color: #2d2d2d !important;
+            color: white !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+        }
+        
+        /* Ensure chat history has proper spacing */
+        .chat-history {
+            padding-bottom: 100px !important;
+        }
+    }
+    
+    /* Additional mobile fixes for input styling */
+    @media (max-width: 480px) {
+        .stChatInput > div > div {
+            font-size: 16px !important;
+            padding: 0.8rem 1rem !important;
+        }
     }
     
     /* Send Button - Mobile Friendly */
@@ -258,8 +339,17 @@ st.markdown("""
     }
     
     .chat-history {
-        padding-bottom: 60px;
+        padding-bottom: 100px;
         background: #0e1117;
+        min-height: calc(100vh - 200px);
+    }
+    
+    /* Ensure proper spacing on mobile */
+    @media (max-width: 768px) {
+        .chat-history {
+            padding-bottom: 120px !important;
+            min-height: calc(100vh - 250px) !important;
+        }
     }
     
     /* Tablet Styles */
@@ -337,7 +427,7 @@ st.markdown("""
 st.markdown("""
 <div class="main-header">
     <h1>🤖 Chat with Ritvik</h1>
-    <p>I'm ritvik, a 3x entrepreneur, most recently sold imagined after scaling it to $400k/revenue. Ask me anything about my journey and work.</p>
+    <p>I'm ritvik, a 3x entrepreneur, most recently sold imagined after scaling it to $400k/revenue.</p>
     <div class="contact-links">
         <a href="https://ritvik.io">Website</a> | 
         <a href="https://www.linkedin.com/in/rivar/">LinkedIn</a> | 
@@ -368,6 +458,86 @@ for message in st.session_state.messages:
             {message["content"]}
         </div>
         """, unsafe_allow_html=True)
+
+# Suggested Questions
+st.markdown("""
+<div style="margin: 1rem 0; padding: 1rem; background: #1a1a1a; border-radius: 12px; border: 1px solid #333;">
+    <h4 style="color: #4CAF50; margin: 0 0 0.8rem 0; font-family: 'Manrope', sans-serif;">💡 Suggested Questions:</h4>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+        <button onclick="askQuestion('What companies have you founded?')" style="
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Manrope', sans-serif;
+        " onmouseover="this.style.background='linear-gradient(135deg, #4a5568 0%, #2d3748 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #2d3748 0%, #4a5568 100%)'">
+            What companies have you founded?
+        </button>
+        <button onclick="askQuestion('What are your skills?')" style="
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Manrope', sans-serif;
+        " onmouseover="this.style.background='linear-gradient(135deg, #4a5568 0%, #2d3748 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #2d3748 0%, #4a5568 100%)'">
+            What are your skills?
+        </button>
+        <button onclick="askQuestion('What is your work experience?')" style="
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Manrope', sans-serif;
+        " onmouseover="this.style.background='linear-gradient(135deg, #4a5568 0%, #2d3748 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #2d3748 0%, #4a5568 100%)'">
+            What is your work experience?
+        </button>
+        <button onclick="askQuestion('What is your biggest achievement?')" style="
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Manrope', sans-serif;
+        " onmouseover="this.style.background='linear-gradient(135deg, #4a5568 0%, #2d3748 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #2d3748 0%, #4a5568 100%)'">
+            What is your biggest achievement?
+        </button>
+    </div>
+</div>
+
+<script>
+function askQuestion(question) {
+    // Find the chat input and set its value
+    const chatInput = document.querySelector('input[placeholder*="Ask me anything"]');
+    if (chatInput) {
+        chatInput.value = question;
+        chatInput.focus();
+        
+        // Trigger the input event to simulate typing
+        const event = new Event('input', { bubbles: true });
+        chatInput.dispatchEvent(event);
+        
+        // Trigger the change event
+        const changeEvent = new Event('change', { bubbles: true });
+        chatInput.dispatchEvent(changeEvent);
+    }
+}
+</script>
+""", unsafe_allow_html=True)
 
 # Chat input
 if prompt := st.chat_input("Ask me anything about my career, work or projects..."):
